@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import { HttpError } from "./models/http-error";
 import { router } from "./router/router";
-import { initMulterMiddleware } from "./middleware/multer";
 
 const app = express ();
 
