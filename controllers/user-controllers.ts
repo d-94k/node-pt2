@@ -10,6 +10,15 @@ export const getUsers = async (request: Request, response: Response) => {
     response.json (users);
 }
 
+export const getUser = async (request: Request, response: Response) => {
+    const user = await prisma.user.findUnique ({
+        where: {
+            id: +request.params.id
+        }
+    });
+    response.json (user);
+}
+
 export const createUser = async (request: Request, response: Response, next: NextFunction) => {
     const Error = validationResult (request);
     if (!Error.isEmpty()) {
@@ -45,4 +54,13 @@ export const deleteUser = async (request: Request, response: Response) => {
         }
     });
     response.json (deletedUser)
+}
+
+export const uploadPicture = async (request: Request, response: Response, next: NextFunction) => {
+    console.log ("file name", request.file);
+    if (!request.file) {
+        return next ("no photo uploaded");
+    }
+    const filePhotoName = request.file.filename;
+    response.status(201).json({ filePhotoName });
 }
