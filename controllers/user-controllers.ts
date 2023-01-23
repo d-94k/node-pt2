@@ -57,7 +57,6 @@ export const deleteUser = async (request: Request, response: Response) => {
 }
 
 export const uploadPicture = async (request: Request, response: Response, next: NextFunction) => {
-    console.log ("file name", request.file);
     if (!request.file) {
         return next ("no photo uploaded");
     }
