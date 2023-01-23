@@ -36,7 +36,7 @@ export const createUser = async (request: Request, response: Response, next: Nex
 
 export const updateUser = async (request: Request, response: Response) => {
     const { id, username } = request.body;
-    const updatedUser = await prisma.user.update({
+    const updatedUser = await prisma.user.update ({
         where: {
             id: id
         },
@@ -62,5 +62,16 @@ export const uploadPicture = async (request: Request, response: Response, next: 
         return next ("no photo uploaded");
     }
     const filePhotoName = request.file.filename;
-    response.status(201).json({ filePhotoName });
+    try {
+        await prisma.user.update ({
+            where: {
+                id: +request.params.id
+            },
+            data: {
+                filePhotoName
+            }
+        })
+    } catch (error) {
+        next ("cannot post picture");
+    }
 }

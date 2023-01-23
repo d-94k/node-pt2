@@ -13,6 +13,6 @@ app.use ((error: any, request: Request, response: Response, next: NextFunction) 
     }
     response.status (error.code || 500);
     response.json ({error: error.message || "unknown error"});
-})
+});
 
 app.listen (3003, () => console.log ("server running at 3003"));

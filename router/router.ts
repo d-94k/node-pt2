@@ -11,3 +11,4 @@ router.put ("/", updateUser);
 router.delete ("/:id", deleteUser);
 router.get ("/:id", getUser);
 router.post ("/:id/photo", initMulterMiddleware().single("photo"), uploadPicture);
+router.use ("/photos", express.static ("uploads"));
