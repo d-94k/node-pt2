@@ -10,14 +10,6 @@ export const getUsers = async (request: Request, response: Response) => {
     response.json (users);
 }
 
-export const getUser = async (request: Request, response: Response) => {
-    const user = await prisma.user.findUnique ({
-        where: {
-            id: +request.params.id
-        }
-    });
-    response.json (user);
-}
 
 export const createUser = async (request: Request, response: Response, next: NextFunction) => {
     const Error = validationResult (request);
@@ -25,6 +17,7 @@ export const createUser = async (request: Request, response: Response, next: Nex
         return next(new HttpError ("invalid user", 422));
     }
     const { username, password } = request.body;
+    
     const createdUser = await prisma.user.create ({
         data: {
             username: username,
