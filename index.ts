@@ -1,9 +1,11 @@
 import express, { NextFunction, Request, Response } from "express";
 import { HttpError } from "./models/http-error";
 import { router } from "./router/router";
+import cors from "cors";
 
 const app = express ();
 
+app.use(cors());
 app.use (express.json());
 app.use ("/", router);
 app.use (() => {throw new HttpError ("page not found", 404)});

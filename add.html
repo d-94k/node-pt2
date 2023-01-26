@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <form action="http://localhost:3003" id="form-add">
+        <label>
+            <strong>Username:</strong>
+            <input type="text" name="username" />
+        </label>
+        <label>
+            <strong>Password:</strong>
+            <input type="text" name="password" />
+        </label>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+
+        async function addUser (event) {
+            event.preventDefault ();
+            const newFormData = new FormData (event.currentTarget);
+            const plainFormData = Object.fromEntries (newFormData.entries ());
+            const formDataJsonString = JSON.stringify (plainFormData);
+            const response = await fetch ("http://localhost:3003", {
+                mode: "cors",
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: formDataJsonString
+            });
+            const user = await response.json ();
+            console.dir (user);
+            }
+            const addForm = document.getElementById ("form-add");
+            addForm.addEventListener ("submit", addUser);
+    </script>
+</body>
+</html>
