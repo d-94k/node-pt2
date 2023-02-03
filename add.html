@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
+    <p>
+        <a href="http://localhost:3003/auth/login">Login</a>
+    </p>
     <form action="http://localhost:3003" id="form-add">
         <label>
             <strong>Username:</strong>
@@ -25,7 +28,8 @@
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: formDataJsonString
+                body: formDataJsonString,
+                credentials: "include"
             });
             const user = await response.json ();
             console.dir (user);
